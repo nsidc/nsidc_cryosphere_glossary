@@ -1,11 +1,19 @@
 """Input and output methods for glossary"""
 from typing import List
 from pathlib import Path
+import re
 
 
 def parse_entry_csv(entry):
     term, definition = entry.strip().split(",", maxsplit=1)
-    return {"term": term, "definition": definition}
+    ddef = parse_definition(definition)
+    return {"term": term, "definition": ddef}
+
+
+def parse_definition(s: str) -> dict:
+    """Parses a definition and returns a dictionary containing one or more definitions"""
+    s = s.strip('"')
+    return s
 
 
 def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
