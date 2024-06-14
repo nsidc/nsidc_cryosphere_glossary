@@ -11,9 +11,13 @@ def parse_entry_csv(entry):
 
 
 def parse_definition(s: str) -> dict:
-    """Parses a definition and returns a dictionary containing one or more definitions"""
+    """Parses a definition and returns a dictionary containing one or more definitions
+
+    TODO: Make sentence case
+    """
+    p = re.compile(r"\s?\(\d+\)\s?")
     s = s.strip('"')
-    return s
+    return {k: v for k, v in enumerate([a.strip() for a in p.split(s) if (a != '') and (a != ' ')], 1)}
 
 
 def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
