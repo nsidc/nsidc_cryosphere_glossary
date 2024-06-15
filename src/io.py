@@ -3,6 +3,8 @@ from typing import List
 from pathlib import Path
 import re
 
+from src.glossary import Entry
+
 
 def parse_entry_csv(entry):
     term, definition = entry.strip().split(",", maxsplit=1)
@@ -17,7 +19,25 @@ def parse_definition(s: str) -> dict:
     """
     p = re.compile(r"\s?\(\d+\)\s?")
     s = s.strip('"')
-    return {k: v for k, v in enumerate([a.strip() for a in p.split(s) if (a != '') and (a != ' ')], 1)}
+    definitions = [as_sentence(a) for a in p.split(s) if (a != '') and (a != ' ')]
+    return {k: v for k, v in enumerate(definitions, 1)}
+
+
+def as_sentence(s):
+    """Simple method to convert string to sentence case.
+
+    Arguments
+    ---------
+    s : string to be converted
+
+    Returns
+    -------
+    string passed to string method capitalize and period added, if necessary.
+    """
+    s = s.strip().capitalize()
+    if not s.endswith("."):
+        s += "."
+    return s
 
 
 def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
@@ -32,6 +52,6 @@ def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
         if i == (header + skiprows):
             columns = line.split(",")
         else:
-            entries.append(parse_entry_csv(line))
+            entries.append(Entry(**parse_entry_csv(line)))
 
     return entries
