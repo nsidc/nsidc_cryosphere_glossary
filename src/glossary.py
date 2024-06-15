@@ -17,6 +17,7 @@ class Entry():
     def __repr__(self):
         return (f"<Entry: term={self.term} "
                 f"definition={self.definition} "
+                f"source={self.source} "
                 f"reference={self.reference}")
 
     def __str__(self):
@@ -61,3 +62,29 @@ def _add_attrs(attrs, name):
     else:
         raise TypeError(f"Expected list or dict for {name} not {type(attrs)}")
 
+
+class Glossary():
+    """Class for handling glossary"""
+
+    def __init__(self, name=""):
+        self.name = name
+        self.n = 0
+
+    def find(self, term):
+        return self.glossary[term]
+
+    def add_entry(self, entry: Entry):
+        """Adds an entry to the Glossary"""
+        if entry.term in self.glossary.keys():
+            raise KeyError(f"{entry.term} already exists!\n{self.glossary[entry.term]}")
+        # start glossary dict
+        self.glossary[entry.term] = entry
+        self.n += 1
+
+
+def _creat_glossary(glossary_list):
+    """Returns a dict of entries"""
+    glossary = {}
+    for entry in glossary_list:
+        glossary[entry.term] = entry
+    return glossary
