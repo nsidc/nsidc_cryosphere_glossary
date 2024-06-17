@@ -10,7 +10,9 @@ class Entry():
     def __init__(self, term: str,
                  definition: Union[List[str], Dict, str],
                  source: Union[List[str], Dict, str]=None,
-                 reference: Union[List[str], Dict, str]=None):
+                 reference: Union[List[str], Dict, str]=None,
+                 synonym: Union[List[str]]=[],
+                 see_also: Union[List[str]]=[]):
         """Initialize entry"""
         self.term = term
         self.definition = _add_attrs(definition, "definition")
@@ -32,10 +34,10 @@ class Entry():
         s += (f"  definition:\n" +
               "\n".join([f"    ({k}): {v}" for k, v in self.definition.items()])) + "\n"
         s += f"  synonym:\n"
-        if self.synonym is not None:
+        if self.synonym != []:
             s += "    " + ",".join([synonym for synonym in self.synonym])
         s += f"  also see:\n"
-        if self.see_also is not None:
+        if self.see_also != []:
               s += "    " + ",".join([see_also for see_also in self.see_also])
         s += f"  source:\n"
         if self.source is not None:
