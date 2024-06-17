@@ -72,7 +72,12 @@ class Glossary():
         self.glossary = {}
 
     def find(self, term):
-        return self.glossary[term]
+        try:
+            entry = self.glossary[term]
+        except:
+            print(f"{term} not found in {self.name}")
+            return None
+        return entry
 
     def add_entry(self, entry: Entry):
         """Adds an entry to the Glossary"""
@@ -84,7 +89,11 @@ class Glossary():
 
     def terms(self):
         """Lists all terms"""
-        return self.glossary.keys()
+        return list(self.glossary.keys())
+
+    def print_term(self, term):
+        """Prints a glossary term"""
+        print(self.find(term))
 
 
 def _create_glossary(glossary_list):
