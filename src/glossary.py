@@ -16,10 +16,14 @@ class Entry():
         self.definition = _add_attrs(definition, "definition")
         self.source = _add_attrs(source, "source")
         self.reference = _add_attrs(reference, "reference")
+        self.synonym = []
+        self.see_also = []
 
     def __repr__(self):
         return (f"<Entry: term={self.term} "
                 f"definition={self.definition} "
+                f"synonym={self.synonym} "
+                f"see_also={self.see_also} "
                 f"source={self.source} "
                 f"reference={self.reference}")
 
@@ -27,6 +31,12 @@ class Entry():
         s = f"term: {self.term}\n"
         s += (f"  definition:\n" +
               "\n".join([f"    ({k}): {v}" for k, v in self.definition.items()])) + "\n"
+        s += f"  synonym:\n"
+        if self.synonym is not None:
+            s += "    " + ",".join([synonym for synonym in self.synonym])
+        s += f"  also see:\n"
+        if self.see_also is not None:
+              s += "    " + ",".join([see_also for see_also in self.see_also])
         s += f"  source:\n"
         if self.source is not None:
             s += "\n".join([f"    ({k}): {v}" for k, v in self.source.items()]) + "\n"
