@@ -3,7 +3,7 @@ from typing import List
 from pathlib import Path
 import re
 
-from src.glossary import Entry
+from src.glossary import Glossary, Entry
 
 
 def parse_entry_csv(entry):
@@ -40,10 +40,14 @@ def as_sentence(s):
     return s
 
 
-def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
+def load_glossary_csv(filepath: Path,
+                      header: int=0,
+                      skiprows: int=0,
+                      name: str="") -> List:
     """Loads a csv file containing a glossary and returns a list of
     glossary items"""
-    entries = []
+    glossary = Glossary()
+    
     with open(filepath) as f:
         lines = f.readlines()
     for i, line in enumerate(lines):
@@ -52,6 +56,6 @@ def load_glossary_csv(filepath: Path, header=0, skiprows=0) -> List:
         if i == (header + skiprows):
             columns = line.split(",")
         else:
-            entries.append(Entry(**parse_entry_csv(line)))
+            glossary.add_entry(Entry(**parse_entry_csv(line)))
 
-    return entries
+    return glossary
