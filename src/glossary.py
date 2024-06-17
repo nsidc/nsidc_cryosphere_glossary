@@ -143,7 +143,7 @@ class Glossary():
         None
         """
         with open(filepath, "w") as f:
-            json.dump(self.to_dict(), fp, indent=indent)
+            json.dump(self.to_dict(), f, indent=indent)
 
 
 def _create_glossary(glossary_list):
