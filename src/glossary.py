@@ -5,7 +5,19 @@ import json
 
 
 class Entry():
-    """Class for glossary entry"""
+    """Class for glossary entry
+
+    An entry must have a term and at least one definition.
+
+    The source is a label in a bibtex file for the source
+    of a definitions.
+
+    A reference is an additional citation.
+
+    A synonym is an alternative term.  This may be a term in the glossary.
+
+    see_also entries are expected to be related terms in the glossary.
+    """
     
     def __init__(self, term: str,
                  definition: Union[List[str], Dict, str],
@@ -81,7 +93,14 @@ def _add_attrs(attrs, name):
 
 
 class Glossary():
-    """Class for handling glossary"""
+    """Class for handling glossary
+
+    Attributes
+    ----------
+    name : the name of the glossary
+    n : (int) the number of entries in the glossary
+    entries : A dictionary of Entry objects with terms as keys
+    """
 
     def __init__(self, name="", n=0, entries={}):
         self.name = name
