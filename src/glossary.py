@@ -48,15 +48,15 @@ class Entry():
         return s
 
     def add_definition(self, definition):
-        """Adds a definition to an entry"""
+        """Adds a definition to an existing entry"""
         pass
 
     def add_source(self, source):
-        """Add a source to an entry"""
+        """Add a source to an existing entry"""
         pass
 
     def add_reference(self, reference):
-        """Add a reference to an entry"""
+        """Add a reference to an existing entry"""
         pass
 
     def to_dict(self):
