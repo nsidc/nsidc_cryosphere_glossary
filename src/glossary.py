@@ -69,6 +69,7 @@ class Glossary():
     def __init__(self, name=""):
         self.name = name
         self.n = 0
+        self.glossary = {}
 
     def find(self, term):
         return self.glossary[term]
@@ -81,8 +82,12 @@ class Glossary():
         self.glossary[entry.term] = entry
         self.n += 1
 
+    def terms(self):
+        """Lists all terms"""
+        return self.glossary.keys()
 
-def _creat_glossary(glossary_list):
+
+def _create_glossary(glossary_list):
     """Returns a dict of entries"""
     glossary = {}
     for entry in glossary_list:
