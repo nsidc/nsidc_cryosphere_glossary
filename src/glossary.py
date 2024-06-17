@@ -64,13 +64,11 @@ class Entry():
         pass
 
     def to_dict(self):
-        """Writes entry as dict"""
-        return {
-            "term": self.term,
-            "definition": self.definition,
-            "source": self.source,
-            "reference": self.reference,
-            }
+        """Writes entry as dict
+
+        TODO: Check if this works with updated attributes
+        """
+        return self.__dict__
 
 
 def _add_attrs(attrs, name):
