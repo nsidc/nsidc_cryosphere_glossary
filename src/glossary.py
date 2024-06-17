@@ -124,10 +124,12 @@ class Glossary():
         return {
             "name": self.name,
             "n": self.n,
-            "entries": [entry.to_dict() for entry in self.entries.values()]
+            "entries": [entry.to_dict() for term, entry in sorted(self.entries.items())]
             }
 
-    def to_json(self, filepath: Union[Path, str], indent=4, clobber=False):
+    def to_json(self, filepath: Union[Path, str],
+                indent=4,
+                clobber=False):
         """Dumps glossary to json format file
 
         Arguments
@@ -142,6 +144,16 @@ class Glossary():
         """
         with open(filepath, "w") as f:
             json.dump(self.to_dict(), f, indent=indent)
+
+    def print_glossary(self, sort_terms=True):
+        print(f"name: {self.name}")
+        print(f"n: {self.n}")
+        if sort_terms:
+            for term, entry in sorted(self.entries.items()):
+                print(entry)
+        else:
+            for entry in self.entries.values():
+                print(entry)
 
 
 def _create_glossary(glossary_list):
