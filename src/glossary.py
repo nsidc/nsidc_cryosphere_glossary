@@ -89,10 +89,10 @@ def _add_attrs(attrs, name):
 class Glossary():
     """Class for handling glossary"""
 
-    def __init__(self, name=""):
+    def __init__(self, name="", n=0, entries={}):
         self.name = name
-        self.n = 0
-        self.entries = {}
+        self.entries = entries  #self.add_entry(Entry(**entry)) for entry in entries]
+        self.n = n
 
     def find(self, term):
         try:
@@ -156,6 +156,17 @@ class Glossary():
         else:
             for entry in self.entries.values():
                 print(entry)
+
+
+    @classmethod
+    def from_json(cls, filepath: Union[Path, str]):
+        """Loads a glossary from a JSON file"""
+        with open(filepath, "r") as f:
+            obj = json.load(f)
+        name = obj["name"]
+        n = obj["n"]
+        entries = {entry["term"]: Entry(**entry) for entry in obj["entries"]}
+        return cls(name, n, entries)
 
 
 def _create_glossary(glossary_list):
