@@ -46,7 +46,7 @@ def load_glossary_csv(filepath: Path,
                       name: str="") -> List:
     """Loads a csv file containing a glossary and returns a list of
     glossary items"""
-    glossary = Glossary()
+    glossary = Glossary(name=name)
     
     with open(filepath) as f:
         lines = f.readlines()
