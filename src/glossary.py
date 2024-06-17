@@ -47,12 +47,6 @@ class Entry():
             s += "\n".join([f"    ({k}): {v}" for k, v in self.reference.items()]) + "\n"
         return s
 
-    def to_json(self):
-        pass
-
-    def add_entry(self):
-        pass
-
     def add_definition(self, definition):
         """Adds a definition to an entry"""
         pass
@@ -167,11 +161,3 @@ class Glossary():
         n = obj["n"]
         entries = {entry["term"]: Entry(**entry) for entry in obj["entries"]}
         return cls(name, n, entries)
-
-
-def _create_glossary(glossary_list):
-    """Returns a dict of entries"""
-    glossary = {}
-    for entry in glossary_list:
-        glossary[entry.term] = entry
-    return glossary
