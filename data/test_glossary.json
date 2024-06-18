@@ -1,0 +1,67 @@
+{
+    "name": "NSIDC Cryosphere Glossary",
+    "n": 6,
+    "entries": [
+        {
+            "term": "ablation",
+            "definition": {
+                "1": "Combined processes (such as sublimation, fusion or melting, evaporation) which remove snow or ice from the surface of a glacier or from a snow-field; also used to express the quantity lost by these processes.",
+                "2": "Reduction of the water equivalent of a snow cover by melting, evaporation, wind and avalanches."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        },
+        {
+            "term": "ablation area",
+            "definition": {
+                "1": "The area of a glacier where more glacier mass is lost than gained."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        },
+        {
+            "term": "ablation hollows",
+            "definition": {
+                "1": "Depressions in the snow surface caused by the sun or warm, gusty wind."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        },
+        {
+            "term": "band ogives",
+            "definition": {
+                "1": "Alternate bands of light and dark on a glacier; usually found below steep narrow icefalls and thought to be the result of different flow and ablation rates between summer and winter."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        },
+        {
+            "term": "calving glacier",
+            "definition": {
+                "1": "Glacier that loses material by calving, usually a glacier that terminates in sea, lake, or river water."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        },
+        {
+            "term": "zone of gas-hydrate stability",
+            "definition": {
+                "1": "That portion of the subsurface where the conditions of temperature and pressure are suitable for the formation and preservation of gas hydrates."
+            },
+            "source": null,
+            "reference": null,
+            "synonym": [],
+            "see_also": []
+        }
+    ]
+}
