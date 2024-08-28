@@ -2,6 +2,10 @@
 from typing import List, Dict, Union
 from pathlib import Path
 import json
+import yaml
+
+# move to config
+GLOSSARY_PATH = Path("glossary")
 
 
 class Entry():
@@ -78,6 +82,22 @@ class Entry():
         """
         return self.__dict__
 
+    def to_yaml(self, filepath: str=None, debug: bool=False):
+        """Write entry to yaml file
+
+        filepath : path to write entry.  If filepath is None the filepath
+                   is the entry term in the glossary directory,
+        debug : creates a yaml file and writes to stdout
+        """
+        if not filepath:
+            filepath = make_entry_path(self.term)
+        if debug:
+            print(filepath)
+            print(yaml.dump(self.to_dict()))
+        else:
+            with open(filepath, "w") as f:
+                yaml.dump(self.to_dict(), f)
+
 
 def _add_attrs(attrs, name):
     if isinstance(attrs, list):
@@ -92,6 +112,24 @@ def _add_attrs(attrs, name):
         raise TypeError(f"Expected list or dict for {name} not {type(attrs)}")
 
 
+def make_entry_path(term: str, filetype: str="yaml") -> Path:
+    """Generates a filepath for a glossary entry
+
+    term : glossary term
+    filetype : type of file to create so that correct extension added
+    
+    returns : returns a Path object
+    """
+    extensions = {
+        "yaml": "yml",
+        "csv": "csv",
+        }
+    suffix = extensions.get(filetype)
+    if not suffix:
+        raise KeyError("Unknown filetype")
+    return GLOSSARY_PATH / f"{"_".join(term.split())}.{suffix}"
+
+    
 class Glossary():
     """Class for handling glossary
 
