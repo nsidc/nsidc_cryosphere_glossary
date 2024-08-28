@@ -93,10 +93,10 @@ class Entry():
             filepath = make_entry_path(self.term)
         if debug:
             print(filepath)
-            print(yaml.dump(self.to_dict()))
+            print(yaml.dump(self))
         else:
             with open(filepath, "w") as f:
-                yaml.dump(self.to_dict(), f)
+                yaml.dump(self, f)
 
 
 def _add_attrs(attrs, name):
