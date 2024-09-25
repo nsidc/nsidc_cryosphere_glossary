@@ -21,6 +21,11 @@ class Entry():
     A synonym is an alternative term.  This may be a term in the glossary.
 
     see_also entries are expected to be related terms in the glossary.
+
+    Methods
+    -------
+    from_yaml : loads entry from yaml
+                Entry.from_yaml(filepath)
     """
     
     def __init__(self, term: str,
@@ -34,8 +39,8 @@ class Entry():
         self.definition = _add_attrs(definition, "definition")
         self.source = _add_attrs(source, "source")
         self.reference = _add_attrs(reference, "reference")
-        self.synonym = []
-        self.see_also = []
+        self.synonym = synonym
+        self.see_also = see_also
 
     def __repr__(self):
         return (f"<Entry: term={self.term} "
@@ -93,10 +98,17 @@ class Entry():
             filepath = make_entry_path(self.term)
         if debug:
             print(filepath)
-            print(yaml.dump(self))
+            print(yaml.safe_dump(self, sort_keys=False))
         else:
-            with open(filepath, "w") as f:
-                yaml.dump(self, f)
+            with open(filepath, "wt", encoding="utf-8") as f:
+                yaml.safe_dump(self, f, sort_keys=False)
+
+    @classmethod
+    def from_yaml(cls, filepath: Union[Path, str]):
+        """Loads a glossary entry from a yaml"""
+        with open("test.yml", "r") as f:
+            fields = yaml.safe_load(f)
+        return cls(**fields)
 
 
 def _add_attrs(attrs, name):
@@ -207,6 +219,19 @@ class Glossary():
         else:
             for entry in self.entries.values():
                 print(entry)
+
+    def to_yaml(self, glossary_path: Union[Path,str]=GLOSSARY_PATH,
+                clobber: bool=False,
+                update: bool=False):
+        """Dumps glossary as a collection of yaml files
+
+        glossary_path : directory path for yaml files.  Default
+                        is GLOSSARY_PATH.
+        clobber : overwrite whole glossary in GLOSSARY_PATH
+        update : only overwrite entries that have changed
+        """
+        for term, entry in self.entries.items():
+            print(term)
 
 
     @classmethod
