@@ -124,7 +124,9 @@ def _add_attrs(attrs, name):
         raise TypeError(f"Expected list or dict for {name} not {type(attrs)}")
 
 
-def make_entry_path(term: str, filetype: str="yaml") -> Path:
+def make_entry_path(term: str,
+                    glossary_path: Path=GLOSSARY_PATH,
+                    filetype: str="yaml") -> Path:
     """Generates a filepath for a glossary entry
 
     term : glossary term
@@ -139,7 +141,7 @@ def make_entry_path(term: str, filetype: str="yaml") -> Path:
     suffix = extensions.get(filetype)
     if not suffix:
         raise KeyError("Unknown filetype")
-    return GLOSSARY_PATH / f"{"_".join(term.split())}.{suffix}"
+    return glossary_path / f"{"_".join(term.split())}.{suffix}"
 
     
 class Glossary():
