@@ -221,7 +221,8 @@ class Glossary():
 
     def to_yaml(self, glossary_path: Union[Path,str]=GLOSSARY_PATH,
                 clobber: bool=False,
-                update: bool=False):
+                update: bool=False,
+                debug: bool=False,):
         """Dumps glossary as a collection of yaml files
 
         glossary_path : directory path for yaml files.  Default
@@ -237,7 +238,7 @@ class Glossary():
             if update == True:
                 # Is there a way to trigger git?
                 raise NotImplemented
-            entry.to_yaml(filepath)
+            entry.to_yaml(filepath, debug=debug)
 
 
     @classmethod
