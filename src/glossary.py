@@ -87,26 +87,23 @@ class Entry():
         """
         return self.__dict__
 
-    def to_yaml(self, filepath: str=None, debug: bool=False):
+    def to_yaml(self, filepath: Union[str, Path], debug: bool=False):
         """Write entry to yaml file
 
-        filepath : path to write entry.  If filepath is None the filepath
-                   is the entry term in the glossary directory,
+        filepath : path to write entry.
         debug : creates a yaml file and writes to stdout
         """
-        if not filepath:
-            filepath = make_entry_path(self.term)
         if debug:
             print(filepath)
-            print(yaml.safe_dump(self, sort_keys=False))
+            print(yaml.safe_dump(self.to_dict(), sort_keys=False))
         else:
             with open(filepath, "wt", encoding="utf-8") as f:
-                yaml.safe_dump(self, f, sort_keys=False)
+                yaml.safe_dump(self.to_dict(), f, sort_keys=False)
 
     @classmethod
     def from_yaml(cls, filepath: Union[Path, str]):
         """Loads a glossary entry from a yaml"""
-        with open("test.yml", "r") as f:
+        with open(filepath, "r") as f:
             fields = yaml.safe_load(f)
         return cls(**fields)
 
