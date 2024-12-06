@@ -230,7 +230,14 @@ class Glossary():
         update : only overwrite entries that have changed
         """
         for term, entry in self.entries.items():
-            print(term)
+            filepath = make_entry_path(term, glossary_path=glossary_path)
+            if (clobber == False) & filepath.exists():
+                warning.warn(f"{filepath} already exists, skipping")
+                continue
+            if update == True:
+                # Is there a way to trigger git?
+                raise NotImplemented
+            entry.to_yaml(filepath)
 
 
     @classmethod
