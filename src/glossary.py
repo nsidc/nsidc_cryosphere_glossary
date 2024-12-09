@@ -273,3 +273,16 @@ class Glossary():
         n = obj["n"]
         entries = {entry["term"]: Entry(**entry) for entry in obj["entries"]}
         return cls(name, n, entries)
+
+
+    @classmethod
+    def from_yaml(cls, path: Union[Path, str], name: str="unnamed glossary"):
+        """Loads a glossary from YAMLs in path"""
+        path = Path(path)
+        entries = {}
+        n = 0
+        for entry_yaml in path.glob("*.yml"):
+            entry = Entry.from_yaml(entry_yaml)
+            entries[entry.term] = entry
+            n += 1
+        return cls(name, n, entries)
