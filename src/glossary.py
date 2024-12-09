@@ -3,6 +3,7 @@ from typing import List, Dict, Union
 from pathlib import Path
 import json
 import yaml
+import re
 
 # move to config
 GLOSSARY_PATH = Path("glossary")
@@ -121,6 +122,18 @@ def _add_attrs(attrs, name):
         raise TypeError(f"Expected list or dict for {name} not {type(attrs)}")
 
 
+def illegal_entry_path(entry_path: Path) -> bool:
+    """Checks that entry path only contains lower-case letters
+    and underscores.
+
+    Returns
+    -------
+    False if path name excluding parents and extension contains
+    characters other than a-z and _
+    """
+    return not re.match(r'^[a-z_]+$', entry_path.stem)
+
+
 def make_entry_path(term: str,
                     glossary_path: Path=GLOSSARY_PATH,
                     filetype: str="yaml") -> Path:
@@ -138,7 +151,10 @@ def make_entry_path(term: str,
     suffix = extensions.get(filetype)
     if not suffix:
         raise KeyError("Unknown filetype")
-    return glossary_path / f"{"_".join(term.split())}.{suffix}"
+    entry_path = glossary_path / f"{re.sub('[ -]','_',term.lower())}.{suffix}"
+    if illegal_entry_path(entry_path):
+        raise ValueError(f"{entry_path.stem} contains illegal character, expected only a-z and _")
+    return entry_path
 
     
 class Glossary():

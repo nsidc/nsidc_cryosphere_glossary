@@ -27,7 +27,13 @@ def test_entry(test_input, expected):
     print(result)
 
 
-def test_make_entry_path():
-    result = make_entry_path("ablation")
-    expected = Path("glossary/ablation.yml")
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [
+        ("ablation", Path("glossary/ablation.yml")),
+        ("zone of gas-hydrate stability", Path("glossary/zone_of_gas_hydrate_stability.yml")),
+        ]
+    )
+def test_make_entry_path(test_input, expected):
+    result = make_entry_path(test_input)
     assert result == expected
