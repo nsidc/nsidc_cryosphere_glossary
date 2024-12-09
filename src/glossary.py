@@ -101,6 +101,13 @@ class Entry():
             with open(filepath, "wt", encoding="utf-8") as f:
                 yaml.safe_dump(self.to_dict(), f, sort_keys=False)
 
+    def to_markdown(self, html_path='.', style="simple"):
+        """Generates quarto style markdown for entry"""
+        s = ""
+        s += f"## {self.term}\n"
+        s += "\n".join([f"    ({k}): {v}" for k, v in self.definition.items()])
+        return s
+
     @classmethod
     def from_yaml(cls, filepath: Union[Path, str]):
         """Loads a glossary entry from a yaml"""
