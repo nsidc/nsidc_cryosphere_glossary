@@ -76,3 +76,6 @@ TODO:
   + output to latex
 - Add CLI to generate updated csv for ingest to Drupal - only needs to be changed terms
 
+## References
+
+https://wgms.ch/downloads/Cogley_etal_2011.pdf
