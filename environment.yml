@@ -12,3 +12,6 @@ dependencies:
  - jupyterlab
  - pytest
  - pyyaml
+ - pypdf2
+ - beautifulsoup4
+ - lxml
