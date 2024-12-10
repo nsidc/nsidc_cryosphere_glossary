@@ -272,18 +272,17 @@ class Glossary():
         path : path for markdown documents.  Default is html
         mkdir : if True create path if it does not exist
         """
-        print(mkdir)
-        print(path, path.exists())
-        if (not path.exists()) & mkdir:
-            path.mkdir(exist_ok=True)
-        elif not path.exists():
-            print(f"{path} does not exist, set mkdir=True to create it")
-            return
-
         for term, entry in self.entries.items():
             markdown = entry.to_markdown()
             # Add way to index terms
-            filepath = make_entry_path(term, glossary_path=path, filetype="markdown")
+            filepath = make_entry_path(term, glossary_path=path / term[0], filetype="markdown")
+
+            if (not filepath.parent.exists()) & mkdir:
+                filepath.parent.mkdir(parents=True, exist_ok=True)
+            elif not filepath.parent.exists():
+                print(f"{filepath.parent} does not exist, set mkdir=True to create it")
+                return
+
             with open(filepath, "wt") as f:
                 f.write(markdown)
 
