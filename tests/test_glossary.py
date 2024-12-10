@@ -2,7 +2,8 @@
 
 import pytest
 
-from src.glossary import Entry
+from pathlib import Path
+from src.glossary import Entry, make_entry_path
 
 @pytest.mark.parametrize(
     "test_input,expected",
@@ -24,3 +25,15 @@ from src.glossary import Entry
 def test_entry(test_input, expected):
     result = Entry(*test_input)
     print(result)
+
+
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [
+        ("ablation", Path("glossary/ablation.yml")),
+        ("zone of gas-hydrate stability", Path("glossary/zone_of_gas_hydrate_stability.yml")),
+        ]
+    )
+def test_make_entry_path(test_input, expected):
+    result = make_entry_path(test_input)
+    assert result == expected

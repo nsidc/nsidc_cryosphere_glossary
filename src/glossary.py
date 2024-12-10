@@ -2,7 +2,12 @@
 from typing import List, Dict, Union
 from pathlib import Path
 import json
+import yaml
+import re
 
+# move to config
+GLOSSARY_PATH = Path("glossary")
+HTML_PATH = Path("html")
 
 class Entry():
     """Class for glossary entry
@@ -17,6 +22,11 @@ class Entry():
     A synonym is an alternative term.  This may be a term in the glossary.
 
     see_also entries are expected to be related terms in the glossary.
+
+    Methods
+    -------
+    from_yaml : loads entry from yaml
+                Entry.from_yaml(filepath)
     """
     
     def __init__(self, term: str,
@@ -30,8 +40,8 @@ class Entry():
         self.definition = _add_attrs(definition, "definition")
         self.source = _add_attrs(source, "source")
         self.reference = _add_attrs(reference, "reference")
-        self.synonym = []
-        self.see_also = []
+        self.synonym = synonym
+        self.see_also = see_also
 
     def __repr__(self):
         return (f"<Entry: term={self.term} "
@@ -78,6 +88,33 @@ class Entry():
         """
         return self.__dict__
 
+    def to_yaml(self, filepath: Union[str, Path], debug: bool=False):
+        """Write entry to yaml file
+
+        filepath : path to write entry.
+        debug : creates a yaml file and writes to stdout
+        """
+        if debug:
+            print(filepath)
+            print(yaml.safe_dump(self.to_dict(), sort_keys=False))
+        else:
+            with open(filepath, "wt", encoding="utf-8") as f:
+                yaml.safe_dump(self.to_dict(), f, sort_keys=False)
+
+    def to_markdown(self, html_path='.', style="simple"):
+        """Generates quarto style markdown for entry"""
+        s = ""
+        s += f"## {self.term}\n"
+        s += "\n".join([f"    ({k}): {v}" for k, v in self.definition.items()])
+        return s
+
+    @classmethod
+    def from_yaml(cls, filepath: Union[Path, str]):
+        """Loads a glossary entry from a yaml"""
+        with open(filepath, "r") as f:
+            fields = yaml.safe_load(f)
+        return cls(**fields)
+
 
 def _add_attrs(attrs, name):
     if isinstance(attrs, list):
@@ -92,6 +129,42 @@ def _add_attrs(attrs, name):
         raise TypeError(f"Expected list or dict for {name} not {type(attrs)}")
 
 
+def illegal_entry_path(entry_path: Path) -> bool:
+    """Checks that entry path only contains lower-case letters
+    and underscores.
+
+    Returns
+    -------
+    False if path name excluding parents and extension contains
+    characters other than a-z and _
+    """
+    return not re.match(r'^[a-z_]+$', entry_path.stem)
+
+
+def make_entry_path(term: str,
+                    glossary_path: Path=GLOSSARY_PATH,
+                    filetype: str="yaml") -> Path:
+    """Generates a filepath for a glossary entry
+
+    term : glossary term
+    filetype : type of file to create so that correct extension added
+    
+    returns : returns a Path object
+    """
+    extensions = {
+        "yaml": "yml",
+        "csv": "csv",
+        "markdown": "md",
+        }
+    suffix = extensions.get(filetype)
+    if not suffix:
+        raise KeyError("Unknown filetype")
+    entry_path = glossary_path / f"{re.sub('[ -]','_',term.lower())}.{suffix}"
+    if illegal_entry_path(entry_path):
+        raise ValueError(f"{entry_path.stem} contains illegal character, expected only a-z and _")
+    return entry_path
+
+    
 class Glossary():
     """Class for handling glossary
 
@@ -170,6 +243,50 @@ class Glossary():
             for entry in self.entries.values():
                 print(entry)
 
+    def to_yaml(self, glossary_path: Union[Path,str]=GLOSSARY_PATH,
+                clobber: bool=False,
+                update: bool=False,
+                debug: bool=False,):
+        """Dumps glossary as a collection of yaml files
+
+        glossary_path : directory path for yaml files.  Default
+                        is GLOSSARY_PATH.
+        clobber : overwrite whole glossary in GLOSSARY_PATH
+        update : only overwrite entries that have changed
+        """
+        for term, entry in self.entries.items():
+            filepath = make_entry_path(term, glossary_path=glossary_path)
+            if (clobber == False) & filepath.exists():
+                warning.warn(f"{filepath} already exists, skipping")
+                continue
+            if update == True:
+                # Is there a way to trigger git?
+                raise NotImplemented
+            entry.to_yaml(filepath, debug=debug)
+
+    def to_markdown(self, path: Union[Path, str]=HTML_PATH, mkdir: bool=False):
+        """Generates markdown files for entries
+
+        Arguments
+        ---------
+        path : path for markdown documents.  Default is html
+        mkdir : if True create path if it does not exist
+        """
+        print(mkdir)
+        print(path, path.exists())
+        if (not path.exists()) & mkdir:
+            path.mkdir(exist_ok=True)
+        elif not path.exists():
+            print(f"{path} does not exist, set mkdir=True to create it")
+            return
+
+        for term, entry in self.entries.items():
+            markdown = entry.to_markdown()
+            # Add way to index terms
+            filepath = make_entry_path(term, glossary_path=path, filetype="markdown")
+            with open(filepath, "wt") as f:
+                f.write(markdown)
+
 
     @classmethod
     def from_json(cls, filepath: Union[Path, str]):
@@ -179,4 +296,17 @@ class Glossary():
         name = obj["name"]
         n = obj["n"]
         entries = {entry["term"]: Entry(**entry) for entry in obj["entries"]}
+        return cls(name, n, entries)
+
+
+    @classmethod
+    def from_yaml(cls, path: Union[Path, str], name: str="unnamed glossary"):
+        """Loads a glossary from YAMLs in path"""
+        path = Path(path)
+        entries = {}
+        n = 0
+        for entry_yaml in path.glob("*.yml"):
+            entry = Entry.from_yaml(entry_yaml)
+            entries[entry.term] = entry
+            n += 1
         return cls(name, n, entries)
