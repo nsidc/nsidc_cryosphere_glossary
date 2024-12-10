@@ -104,8 +104,15 @@ class Entry():
     def to_markdown(self, html_path='.', style="simple"):
         """Generates quarto style markdown for entry"""
         s = ""
-        s += f"## {self.term}\n"
-        s += "\n".join([f"    ({k}): {v}" for k, v in self.definition.items()])
+        s += f"## {self.term.capitalize()}\n"
+        if len(self.definition) > 1:
+            s += "\n".join([f"{i}. {v}" for i, v in enumerate(self.definition.values(),1)])
+        else:
+            s += self.definition[1]
+        if self.synonym:
+            s += f"Synonyms: {", ".join(self.synonym)}\n"
+        if self.see_also:
+            s += f"See also: {", ".join(self.see_also)}\n"
         return s
 
     @classmethod

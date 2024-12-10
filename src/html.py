@@ -27,7 +27,8 @@ def build_html(glossary_path, verbose=False):
     glossary = Glossary.from_yaml(glossary_path)
 
     # Collect or sort terms
-
+#    filepath = {term: make_entry_path(term, glossary_path=Path("html",term[0]), filetype="markdown") for term in terms}
+    
     # Make index pages for each letter of alphabet
     # Consists or sorted list of terms with links to markdown page
     
@@ -36,7 +37,7 @@ def build_html(glossary_path, verbose=False):
     if verbose: print(f"Generating entry markdown files")
     # Add links to terms
     # Put in directories organized by first letter to allow auto content creation
-    # filepath = {term: make_entry_path(term, glossary_path=Path("html",term[0]), filetype="markdown") for term in terms}
+    # 
     glossary.to_markdown(mkdir=MKDIR)
 
 
