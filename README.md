@@ -53,6 +53,15 @@ glossary.print_term("ablation")
 **Need tools to update definitions, add sources and references...**
 
 TODO:
+- Add github gui update workflow to README
+- Move API workflow to separate pages
+- create github actions to:
+  + render pages
+  + generate csv file
+- Create simple html pages for display
+  + generate _quarto.yml
+  + write <term>.md to alphabetized directory structure 
+
 - Add CLI for searching for a term
 - Add CLI for updating a term - needs to add and commit to git, and push
   + update definition
