@@ -7,7 +7,7 @@ import re
 
 # move to config
 GLOSSARY_PATH = Path("glossary")
-
+HTML_PATH = Path("html")
 
 class Entry():
     """Class for glossary entry
@@ -154,6 +154,7 @@ def make_entry_path(term: str,
     extensions = {
         "yaml": "yml",
         "csv": "csv",
+        "markdown": "md",
         }
     suffix = extensions.get(filetype)
     if not suffix:
@@ -262,6 +263,29 @@ class Glossary():
                 # Is there a way to trigger git?
                 raise NotImplemented
             entry.to_yaml(filepath, debug=debug)
+
+    def to_markdown(self, path: Union[Path, str]=HTML_PATH, mkdir: bool=False):
+        """Generates markdown files for entries
+
+        Arguments
+        ---------
+        path : path for markdown documents.  Default is html
+        mkdir : if True create path if it does not exist
+        """
+        print(mkdir)
+        print(path, path.exists())
+        if (not path.exists()) & mkdir:
+            path.mkdir(exist_ok=True)
+        elif not path.exists():
+            print(f"{path} does not exist, set mkdir=True to create it")
+            return
+
+        for term, entry in self.entries.items():
+            markdown = entry.to_markdown()
+            # Add way to index terms
+            filepath = make_entry_path(term, glossary_path=path, filetype="markdown")
+            with open(filepath, "wt") as f:
+                f.write(markdown)
 
 
     @classmethod
