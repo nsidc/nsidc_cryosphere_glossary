@@ -1,9 +1,0 @@
-term: total annual thawing index
-definition:
-  1: The cumulative number of degree-days, calculated by adding all the positive mean
-    daily air temperatures (degrees celsius) for a specific station during a calendar
-    year.
-source: null
-reference: null
-synonym: []
-see_also: []

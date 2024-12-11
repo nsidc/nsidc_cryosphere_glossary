@@ -1,9 +1,0 @@
-term: dew point
-definition:
-  1: The temperature to which a given parcel of air must be cooled at constant pressure
-    and constant water-vapor content in order for saturation to occur; when this temperature
-    is below 0 degrees celsius, it is called the frost point.
-source: null
-reference: null
-synonym: []
-see_also: []

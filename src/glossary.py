@@ -270,6 +270,8 @@ class Glossary():
             if update == True:
                 # Is there a way to trigger git?
                 raise NotImplemented
+            if not filepath.parent.exists():
+                filepath.parent.mkdir(parents=True, exist_ok=True)
             entry.to_yaml(filepath, debug=debug)
 
     def to_markdown(self, path: Union[Path, str]=HTML_PATH, mkdir: bool=False,

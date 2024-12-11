@@ -1,9 +1,0 @@
-term: heat budget
-definition:
-  1: Relation between fluxes of heat into and out of a given region or body and the
-    heat stored by the system; in general, this budget includes advective, evaporative,
-    and other terms as well as a radiation term.
-source: null
-reference: null
-synonym: []
-see_also: []
