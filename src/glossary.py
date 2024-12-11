@@ -36,7 +36,7 @@ class Entry():
                  synonym: Union[List[str]]=[],
                  see_also: Union[List[str]]=[]):
         """Initialize entry"""
-        self.term = term
+        self.term = term.lower()
         self.definition = _add_attrs(definition, "definition")
         self.source = _add_attrs(source, "source")
         self.reference = _add_attrs(reference, "reference")
