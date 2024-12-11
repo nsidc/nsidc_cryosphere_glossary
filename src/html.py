@@ -7,6 +7,13 @@ Create individual pages - has options to create full pages with refs etc as well
 """
 
 from pathlib import Path
+"""Creates glossary html pages
+
+To tear down the glossary by removing the glossary directories use:
+
+`ls | grep -P "^[a-zA-Z]$" | xargs -d"\n" rm -rf`
+
+"""
 
 from src.glossary import Glossary
 
