@@ -262,7 +262,8 @@ class Glossary():
         update : only overwrite entries that have changed
         """
         for term, entry in self.entries.items():
-            filepath = make_entry_path(term, glossary_path=glossary_path)
+            filepath = make_entry_path(term, glossary_path=glossary_path / term[0],
+                                       filetype="yaml")
             if (clobber == False) & filepath.exists():
                 warning.warn(f"{filepath} already exists, skipping")
                 continue
