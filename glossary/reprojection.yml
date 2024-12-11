@@ -1,0 +1,8 @@
+term: reprojection
+definition:
+  1: Provides the user the ability to convert the data from its native reference projection
+    to a different reference projection.
+source: null
+reference: null
+synonym: []
+see_also: []

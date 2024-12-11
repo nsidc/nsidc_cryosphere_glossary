@@ -1,0 +1,14 @@
+term: radiative forcing
+definition:
+  1: A measure of the additional absorption of solar radiation from light absorbing
+    particles (lap) such as dust or soot. units of measure are watts per square meter
+    (w/m2) and values can range from 0 to 500 w/m2. the maximum value depends on incoming
+    solar radiation (elevation, direct sun vs shaded) and the amount of dust or soot.
+    a value of 0 means no additional radiation is being absorbed. a value of 500 means
+    nearly all of the solar energy is absorbed (depends on latitude, elevation, clouds).
+    radiative forcing is calculated by the difference between the net (downward minus
+    upward) radiative fluxes (irradiance) with and without lap.
+source: null
+reference: null
+synonym: []
+see_also: []

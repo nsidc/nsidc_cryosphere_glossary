@@ -1,0 +1,9 @@
+term: freezing degree-days
+definition:
+  1: A measure of how cold it has been and how long it has been cold; the cumulative
+    fdd is usually calculated as a sum of average daily degrees below freezing for
+    a specified time period (10 days, month, season, etc.).
+source: null
+reference: null
+synonym: []
+see_also: []

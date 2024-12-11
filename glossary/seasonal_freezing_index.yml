@@ -1,0 +1,11 @@
+term: seasonal freezing index
+definition:
+  1: The cumulative number of degree-days below 0 degrees celsius, calculated as the
+    arithmetic sum of all the negative and positive mean daily air temperatures (degrees
+    celsius) for a specific station during the time period between the highest point
+    in the fall and the lowest point the next spring on the cumulative degree-day
+    time curve.
+source: null
+reference: null
+synonym: []
+see_also: []

@@ -1,0 +1,9 @@
+term: grid
+definition:
+  1: A finite collection of points to which the meteorological variables used in a
+    numerical model, or interpolated from observations, apply; a field of such regular
+    values (points) is termed gridded field.
+source: null
+reference: null
+synonym: []
+see_also: []
