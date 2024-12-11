@@ -271,13 +271,17 @@ class Glossary():
                 raise NotImplemented
             entry.to_yaml(filepath, debug=debug)
 
-    def to_markdown(self, path: Union[Path, str]=HTML_PATH, mkdir: bool=False):
+    def to_markdown(self, path: Union[Path, str]=HTML_PATH, mkdir: bool=False,
+                    clobber=False):
         """Generates markdown files for entries
 
         Arguments
         ---------
         path : path for markdown documents.  Default is html
         mkdir : if True create path if it does not exist
+        clobber : if True overwrite markdown file, otherwise only update if yaml updated
+
+        TODO: Only create if older than yaml
         """
         for term, entry in self.entries.items():
             markdown = entry.to_markdown()
