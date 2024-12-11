@@ -5,7 +5,8 @@ from pathlib import Path
 
 from src.io import load_glossary_csv
 
-GLOSSARY_CSV = "data/test_glossary.csv"
+# GLOSSARY_CSV = "data/test_glossary.csv"  # For testing
+GLOSSARY_CSV = "data/nsidc_crosphere_glossary.20240601.csv"
 
 DEBUG = False
 
