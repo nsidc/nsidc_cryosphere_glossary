@@ -318,7 +318,7 @@ class Glossary():
         path = Path(path)
         entries = {}
         n = 0
-        for entry_yaml in path.glob("*.yml"):
+        for entry_yaml in path.glob("*/*.yml"):
             entry = Entry.from_yaml(entry_yaml)
             entries[entry.term] = entry
             n += 1
