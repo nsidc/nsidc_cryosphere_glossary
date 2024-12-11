@@ -145,7 +145,7 @@ def illegal_entry_path(entry_path: Path) -> bool:
     False if path name excluding parents and extension contains
     characters other than a-z and _
     """
-    return not re.match(r'^[a-z_]+$', entry_path.stem)
+    return not re.match(r'^\w+$', entry_path.stem)
 
 
 def make_entry_path(term: str,
@@ -166,7 +166,7 @@ def make_entry_path(term: str,
     suffix = extensions.get(filetype)
     if not suffix:
         raise KeyError("Unknown filetype")
-    entry_path = glossary_path / f"{re.sub('[ -]','_',term.lower())}.{suffix}"
+    entry_path = glossary_path / f"{re.sub(r'[\(\)\']','',re.sub('[ -/]','_',term.lower()))}.{suffix}"
     if illegal_entry_path(entry_path):
         raise ValueError(f"{entry_path.stem} contains illegal character, expected only a-z and _")
     return entry_path
