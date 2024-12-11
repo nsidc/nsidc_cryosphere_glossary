@@ -1,0 +1,17 @@
+term: microwave sensors
+definition:
+  1: In terms of wavelength, microwaves range from 1 millimeter to 1 meter, and are
+    much longer than the shorter visible (0.38-0.78 micrometer) wavelengths; these
+    longer wavelengths allow microwave energy to penetrate through clouds; because
+    these sensors measure microwave energy, they do not rely on sunlight for illumination
+    so they can acquire images regardless of time of day; can be either passive or
+    active; passive sensors detect and record naturally upwelling microwave energy
+    emitted from objects; active sensors generate their own beam of energy, generally
+    with an antenna, which then detects the returned energy patterns (backscatter)
+    that indicate the presence of features and their position relative to the sensor;
+    radar (radio detection and ranging) was an original active microwave sensor that
+    became widely operational with the onset of world war ii.
+source: null
+reference: null
+synonym: []
+see_also: []

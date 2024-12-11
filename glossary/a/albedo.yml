@@ -1,0 +1,12 @@
+term: albedo
+definition:
+  1: A non-dimensional, unitless quantity that measures how well a surface reflects
+    solar energy; ranges from 0 - 1; a value of 0 means the surface is a perfect absorber,
+    where all incoming energy is absorbed, a value of 1 means the surface is a perfect
+    reflector, where all incoming energy is reflected and none is absorbed. this quantity
+    can also be expressed as a percent with a range from 0 to 100, with zero percent
+    absorbing all incoming energy and 100 percent reflecting all energy.
+source: null
+reference: null
+synonym: []
+see_also: []

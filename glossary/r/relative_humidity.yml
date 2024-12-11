@@ -1,0 +1,9 @@
+term: relative humidity
+definition:
+  1: The (dimensionless) ratio of the actual vapor pressure of the air to the saturation
+    vapor pressure; usually expressed as a percent, and can be computed from psychrometric
+    data.
+source: null
+reference: null
+synonym: []
+see_also: []

@@ -1,0 +1,10 @@
+term: geostrophic wind
+definition:
+  1: Theoretical wind which results from the equilibrium between horizontal components
+    of the pressure gradient force and the coriolis force (deviating force) above
+    the friction layer; only these two forces (no frictional force) are supposed to
+    act on the moving air; it blows parallel to straight isobars or contours.
+source: null
+reference: null
+synonym: []
+see_also: []
