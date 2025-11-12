@@ -78,4 +78,5 @@ TODO:
 
 ## References
 
-https://wgms.ch/downloads/Cogley_etal_2011.pdf
+[Glossary of Glacier Mass Balance Terms](https://wgms.ch/downloads/Cogley_etal_2011.pdf)  
+[quarto-glossary](https://debruine.github.io/quarto-glossary/)
